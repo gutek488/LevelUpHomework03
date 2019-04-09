@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 
     
-    setInterval(()=>{s.next()}, 100)
+    setInterval(()=>{s.next()}, 1000)
     
 
 });
