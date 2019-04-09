@@ -3,42 +3,42 @@ document.addEventListener("DOMContentLoaded", ()=>{
     let time = new Date();
     let zeroPad = (num) => num.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
 
-    let sec = time.getSeconds();
-    let min = time.getMinutes();
-    let hr = time.getHours()
+    let seconds = time.getSeconds();
+    let minutes = time.getMinutes();
+    let hours = time.getHours()
     
     let hoursSpan = document.querySelector(".clock__hours");
     let minutesSpan = document.querySelector(".clock__minutes");
     let secondsSpan = document.querySelector(".clock__seconds");
 
-    secondsSpan.innerHTML =`${zeroPad(sec)}`;
-    minutesSpan.innerHTML =`${zeroPad(min)}`
-    hoursSpan.innerHTML =`${zeroPad(hr)}`
+    secondsSpan.innerHTML =`${zeroPad(seconds)}`;
+    minutesSpan.innerHTML =`${zeroPad(minutes)}`
+    hoursSpan.innerHTML =`${zeroPad(hours)}`
     
-    function* secGenerator(seconds) {
+    function* secGenerator() {
         while(true) {
             seconds++;  
             yield secondsSpan.innerHTML =`${zeroPad(seconds)}`;
             if (seconds === 59) {
                 seconds = 0;
                 secondsSpan.innerHTML =`${zeroPad(seconds)}`;
-                yield* m;
+                yield* minGenerator();
             }
         }
     }
 
-    function*  minGenerator(minutes) {
+    function*  minGenerator() {
         minutes++;
         yield minutesSpan.innerHTML =`${zeroPad(minutes)}`;
         if (minutes === 59) {
                 minutes = 0;
                 minutesSpan.innerHTML =`${zeroPad(minutes)}`
-                yield* h; 
+                yield* hourGenerator(); 
         }
         
     }
 
-    function*  hourGenerator(hours) {
+    function*  hourGenerator() {
         hours++;
         yield hoursSpan.innerHTML =`${zeroPad(hours)}`;
         if (hours === 11) {
@@ -48,13 +48,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     }
     
-    let s = secGenerator(sec);  
-    let m = minGenerator(min);
-    let h = hourGenerator(hr);
+    let s = secGenerator();  
+    let m = minGenerator();
+    let h = hourGenerator();
 
 
     
-    setInterval(()=>{s.next()}, 1000)
+    setInterval(()=>{s.next()}, 100)
     
 
 });
