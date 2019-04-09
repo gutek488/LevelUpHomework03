@@ -5,7 +5,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     let seconds = time.getSeconds();
     let minutes = time.getMinutes();
-    let hours = time.getHours()
+    let hours = time.getHours();
+
+    if (hours > 12) {
+        hours -= 12;
+    }
+    
     
     let hoursSpan = document.querySelector(".clock__hours");
     let minutesSpan = document.querySelector(".clock__minutes");
@@ -41,7 +46,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     function*  hourGenerator() {
         hours++;
         yield hoursSpan.innerHTML =`${zeroPad(hours)}`;
-        if (hours === 11) {
+        if (hours === 12) {
             hours = 0;
             hoursSpan.innerHTML =`${zeroPad(hours)}`;
         }
